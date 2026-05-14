@@ -1446,7 +1446,7 @@ def render_schema_explorer(conn: sqlite3.Connection, dataset: str) -> None:
                     pcols, prows = preview_table(conn, table)
                     if prows:
                         st.dataframe(pd.DataFrame(prows, columns=pcols),
-                                     use_container_width=True, hide_index=True)
+                                     width='stretch', hide_index=True)
                     else:
                         st.info("Table is empty.")
 
@@ -1502,7 +1502,7 @@ def render_results(result: dict) -> None:
         return
     if result["rows"] and result["columns"]:
         st.dataframe(pd.DataFrame(result["rows"], columns=result["columns"]),
-                     use_container_width=True, hide_index=True)
+                     width='stretch', hide_index=True)
 
 
 def render_sql_editor(dialect: str, dataset: str) -> str:
@@ -1591,9 +1591,9 @@ def main() -> None:
         st.caption("💡 **Run Query** below — ACE editor also accepts Ctrl+Enter / Cmd+Enter")
 
         b1, b2, _ = st.columns([2, 1, 5])
-        with b1: run_clicked = st.button("▶ Run Query", type="primary", use_container_width=True)
+        with b1: run_clicked = st.button("▶ Run Query", type="primary", width='stretch')
         with b2:
-            if st.button("🗑️ Clear", use_container_width=True):
+            if st.button("🗑️ Clear", width='stretch'):
                 load_into_editor("")
                 st.session_state[SK_LAST_RESULT] = None
                 st.rerun()
